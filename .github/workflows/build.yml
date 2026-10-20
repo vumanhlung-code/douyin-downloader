@@ -8,10 +8,10 @@ jobs:
       - run: unzip -o DouyinDownloader.zip -d src
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
-      - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v3
+      - run: echo "sdk.dir=$ANDROID_HOME" > src/local.properties
+      - uses: gradle/actions/setup-gradle@v4
         with: { gradle-version: '8.7' }
-      - run: gradle assembleDebug
+      - run: gradle assembleDebug --stacktrace
         working-directory: src
       - uses: actions/upload-artifact@v4
         with:
